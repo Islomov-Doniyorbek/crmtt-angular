@@ -6,10 +6,11 @@ import { Router } from '@angular/router';
 import { Filter } from "./components/filter/filter";
 import { Statistics } from "./components/statistics/statistics";
 import { Table } from './components/table/table';
+import { FormModal } from "./components/form-modal/form-modal";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Navbar, Sidebar, Filter, Statistics, Table],
+  imports: [Navbar, Sidebar, Filter, Statistics, Table, FormModal],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -17,7 +18,12 @@ export class Dashboard implements OnInit {
   dashService = inject(DashboardService);
   router = inject(Router)
   users = []
+  constructor() {
+  console.log('Dashboard yaratildi');
+}
   ngOnInit(): void {
+    console.log("Dashboard Build");
+    
     this.dashService.getAllusers().subscribe({
       next: (res)=>{
         
@@ -34,4 +40,7 @@ export class Dashboard implements OnInit {
     console.log(this.users);
     
   }
+  ngOnDestroy() {
+  console.log('Dashboard DESTROY');
+}
 }

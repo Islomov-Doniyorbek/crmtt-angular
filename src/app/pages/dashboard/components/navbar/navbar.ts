@@ -10,6 +10,7 @@ import { User } from '../../../../responses';
   styleUrl: './navbar.css',
 })
 export class Navbar implements OnInit {
+  dashService = inject(DashboardService)
   user: User = JSON.parse(localStorage.getItem('user')!)
   ngOnInit(): void {
     console.log(this.user);

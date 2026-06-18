@@ -11,7 +11,8 @@ export class DashboardService {
   private http = inject(HttpClient)
   
   private apiService = inject(Api)
-  isHideStat: boolean = true;
+  isHideStat: boolean = true; //statistika kartalari uchun
+  isForm: boolean = false; //forma modal uchun
   getAllusers():Observable<RespUsers>{
     const token = localStorage.getItem('accToken')
     return this.http.get<RespUsers>('http://localhost:3000/api/users', {
@@ -22,5 +23,8 @@ export class DashboardService {
 
   hideStat(){
     this.isHideStat = !this.isHideStat
+  }
+  openForm(){
+    this.isForm = !this.isForm;
   }
 }

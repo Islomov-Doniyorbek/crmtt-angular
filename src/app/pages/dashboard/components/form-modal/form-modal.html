@@ -1,0 +1,46 @@
+<div class="absolute top-0 left-0 flex items-center justify-center w-full h-screen bg-[#cccccc85]">
+    <div class="border rounded-2xl bg-white w-xl py-3 px-2">
+        <div class="flex justify-between items-center px-4 py-3">
+            
+            <h2 class="text-2xl font-medium">Add user</h2>
+            <!-- <button type="button" (click)="dashService.openForm()" class="border px-2 py-1">Close</button> -->
+            <lucide-icon (click)="dashService.openForm()" class="cursor-pointer font-semibold hover:text-red-600" name="x"></lucide-icon>
+        </div>
+        <form [formGroup]="userData" class="flex w-full px-4 flex-col gap-4 items-center">
+            <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
+            [class.border-red-400] = "userData.get('username')?.invalid && userData.get('username')?.touched"
+            >
+                <input
+                    class="w-full flex items-center py-1.5 px-0.5 text-[16px] outline-none hover:outline-none border-0 placeholder:text-gray-400"
+                    type="text"
+                    formControlName="username"
+                    placeholder="Username">
+                <lucide-icon (click)="clearInput()" name="circle-x" class="text-gray-400 cursor-pointer"></lucide-icon>
+            </div>
+            <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
+            [class.border-red-400] = "userData.get('password')?.invalid && userData.get('password')?.touched"
+            >
+                <input
+                    class="w-full flex items-center py-1.5 px-0.5 text-[16px] outline-none hover:outline-none border-0 placeholder:text-gray-400"
+                    type="text"
+                    formControlName="password"
+                    placeholder="Password">
+                <lucide-icon name="dices" class="text-gray-400 cursor-pointer transition duration-700 hover:rotate-180 hover:text-yellow-500"></lucide-icon>
+            </div>
+            <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
+            [class.border-red-400] = "userData.get('username')?.invalid && userData.get('username')?.touched"
+            >
+                <select
+                    class="w-full flex items-center py-1.5 px-0.5 text-[16px] outline-none hover:outline-none border-0 placeholder:text-gray-400"
+                    type="text"
+                    formControlName="role">
+                    
+                    <option value="user" class="py-1.5 px-0.5 text-[16px] outline-none border-b border-b-gray-50">User</option>
+                    <option value="admin" class="py-1.5 px-0.5 text-[16px] outline-none border-b border-b-gray-50">Admin</option>
+                </select>
+            </div>
+
+            <button>Add</button>
+        </form>
+    </div>
+</div>
