@@ -3,10 +3,11 @@ import { LucideAngularModule } from 'lucide-angular';
 import { DashboardService } from '../../dashboard.service';
 import { User } from '../../../../responses';
 import { PipesPipe } from '../../../../pipes-pipe';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-table',
-  imports: [LucideAngularModule, PipesPipe],
+  imports: [LucideAngularModule, PipesPipe, DatePipe],
   templateUrl: './table.html',
   styleUrl: './table.css',
 })

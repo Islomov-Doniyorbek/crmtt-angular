@@ -3,7 +3,7 @@
         <table class="w-full mt-5">
             <thead class="">
                 <tr>
-                    @for (item of ['Username', "Password", "Role", 'Banned', '']; track $index) {
+                    @for (item of ['Username', "Role", "Created", 'Banned', '']; track $index) {
                         <th class="py-2 text-left">{{item}}</th>
                     } 
                 </tr>
@@ -23,8 +23,9 @@
                                     {{item.username}} 
                                 </div>
                             </td>
-                            <td class="py-3 text-[#404D61] text-left">{{item.password | pipes}}</td>
                             <td class="py-3 text-[#404D61] text-left">{{item.role}}</td>
+                            <td class="py-3 text-[#404D61] text-left">{{item.created_at | date:'medium'}}</td>
+                            <!-- <td class="py-3 text-[#404D61] text-left">{{item.password | pipes}}</td> -->
                             <td class="py-3 text-[#404D61] text-left">{{item.banned ? "Ban" : "Clear"}}</td>
                             <td class="py-3 w-1/12 text-[#404D61] ">
                                 <div class="flex items-center justify-end px-4 gap-3 w-full">

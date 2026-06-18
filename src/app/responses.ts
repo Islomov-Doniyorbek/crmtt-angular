@@ -13,6 +13,7 @@ export interface User {
     password: string
     role: string
     banned: boolean
+    created_at: string
 }
 export interface RespUsers {
     status: number

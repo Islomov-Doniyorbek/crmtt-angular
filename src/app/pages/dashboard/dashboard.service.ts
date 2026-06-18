@@ -1,8 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Api } from '../../services/api';
-import { RespUsers } from '../../responses';
+import { RespUsers, User } from '../../responses';
 import { Observable } from 'rxjs';
+interface Uuser {
+  username: string
+  password: string
+  role: string
+}
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +23,10 @@ export class DashboardService {
     return this.http.get<RespUsers>('http://localhost:3000/api/users', {
       headers: this.apiService.header(token!)
     })
+  }
+
+  createUser(user:User){
+    return this.http.post('http://localhost:3000/api/user/create', user)
   }
 
 
