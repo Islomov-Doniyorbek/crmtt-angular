@@ -9,7 +9,11 @@
                  type="search"
                  placeholder="Search...">
         </div>
-        <button class="px-5 py-3 bg-[#5B6AD0] rounded-xl text-white border-gray-200">Add employee</button>
+        @if (user.role === 'admin') {
+            <button class="px-5 py-3 bg-[#5B6AD0] rounded-xl text-white border-gray-200">Add user</button>
+        }@else {
+            <button class="px-5 py-3 bg-[#5B6AD0] rounded-xl text-white border-gray-200">Add employee</button>
+        }
         <div class="px-3 py-2.5 rounded-md border border-gray-200 bg-white">
             <lucide-icon name="pen" class="text-gray-500"></lucide-icon>
         </div>

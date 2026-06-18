@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
+import { DashboardService } from '../../dashboard.service';
+import { User } from '../../../../responses';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +9,11 @@ import { LucideAngularModule } from 'lucide-angular';
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
-export class Navbar {}
+export class Navbar implements OnInit {
+  user: User = JSON.parse(localStorage.getItem('user')!)
+  ngOnInit(): void {
+    console.log(this.user);
+    
+  }
+  
+}

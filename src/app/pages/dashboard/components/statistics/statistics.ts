@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-statistics',
@@ -7,4 +8,6 @@ import { LucideAngularModule } from 'lucide-angular';
   templateUrl: './statistics.html',
   styleUrl: './statistics.css',
 })
-export class Statistics {}
+export class Statistics {
+  dashService = inject(DashboardService)
+}

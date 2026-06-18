@@ -1,21 +1,67 @@
-<div class="px-3 w-full">
-    <table class="w-full">
-        <thead class="">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Role</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Vartolu</td>
-                <td>varto@gmail.com</td>
-                <td>Free</td>
-                <td>Developer</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+@if (user.role === 'admin') {
+    <div class="px-3 w-full">
+        <table class="w-full mt-5">
+            <thead class="">
+                <tr>
+                    @for (item of ['Username', "Password", "Role", 'Banned', '']; track $index) {
+                        <th class="py-2 text-left">{{item}}</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of users; track $index;) {
+                    <tr class="bg-gray-100">
+                        <td class="py-3 text-[#075ad7] text-left ">
+                            <div class="flex gap-2 items-center">
+                                <div class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">{{item.username[0]}}</div>
+                                {{item.username}} 
+                            </div>
+                        </td>
+                        <td class="py-3 text-[#404D61] text-left">{{item.password | pipes}}</td>
+                        <td class="py-3 text-[#404D61] text-left">{{item.role}}</td>
+                        <td class="py-3 text-[#404D61] text-left">{{item.banned ? "Ban" : "Clear"}}</td>
+                        <td class="py-3 w-1/12 text-[#404D61] ">
+                            <div class="flex items-center justify-end px-4 gap-3 w-full">
+                                <lucide-icon name="pen" class="text-orange-500 w-5"></lucide-icon>
+                                <lucide-icon name="trash" class="text-red-500 w-5"></lucide-icon>
+                                <lucide-icon name="ban" class="text-red-800 w-5"></lucide-icon>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}@else {
+    <div class="px-3 w-full">
+        <table class="w-full mt-5">
+            <thead class="">
+                <tr>
+                    @for (item of ['Name', "Email", "Status", 'Role', '']; track $index) {
+                        <th class="py-2 text-left">{{item}}</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-gray-100 ">
+                    <td class="py-3 text-[#404D61] text-left ">
+                        <div class="flex gap-2 items-center">
+                            <div class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">V</div>
+                            Vartolu
+                        </div>
+                    </td>
+                    <td class="py-3 text-[#404D61] text-left">varto@gmail.com</td>
+                    <td class="py-3 text-[#404D61] text-left">Free</td>
+                    <td class="py-3 text-[#404D61] text-left">Developer</td>
+                    <td class="py-3 text-[#404D61] text-left ">
+                        <div class="flex items-center gap-3 w-full">
+                            <lucide-icon name="pen" class="text-orange-500"></lucide-icon>
+                            <lucide-icon name="trash" class="text-red-500"></lucide-icon>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
