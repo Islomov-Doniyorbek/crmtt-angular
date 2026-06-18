@@ -1,0 +1,35 @@
+<div class="flex w-full h-screen items-center justify-center">
+    <form [formGroup]="formData" (ngSubmit)="onLogin()" class="flex justify-center gap-4 items-center flex-col rounded-md w-2xl min-h-60">
+        <div class="w-90 flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
+            [class.border-red-400] = "formData.get('username')?.invalid && formData.get('username')?.touched"
+        >
+            <input
+                 class="w-full flex items-center py-1.5 px-0.5 text-[16px] outline-none hover:outline-none border-0 placeholder:text-gray-400"
+                 type="text"
+                 formControlName="username"
+                 placeholder="Username">
+            <lucide-icon (click)="clearInput()" name="circle-x" class="text-gray-400 cursor-pointer"></lucide-icon>
+        </div>
+        <div class="w-90 flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
+            [class.border-red-400] = "formData.get('password')?.invalid && formData.get('password')?.touched"
+        >
+            <input
+                 class="w-full flex items-center py-1.5 px-0.5 text-[16px] outline-none hover:outline-none border-0 placeholder:text-gray-400"
+                 [type]="isHide ? 'text' : 'password'"
+                 formControlName="password"
+                 placeholder="Password">
+            <lucide-icon
+             (click)="hide()"
+             [class.hidden] = isHide
+             name="eye" class="text-gray-400 cursor-pointer"></lucide-icon>
+            <lucide-icon
+             (click)="hide()"
+             [class.hidden] = !isHide
+             name="eye-off" class="text-gray-400 cursor-pointer"></lucide-icon>
+        </div>
+        <div class="flex justify-between w-90">
+            <button type="button" class="px-2 py-1 rounded-md bg-blue-500 text-white cursor-pointer border-none outline-none hover:bg-blue-600 active:bg-blue-400">Yordam</button>
+            <button type="submit" [disabled]="formData.invalid" class="px-2 py-1 rounded-md bg-blue-500 text-white cursor-pointer border-none outline-none hover:bg-blue-600 active:bg-blue-400">Login</button>
+        </div>
+    </form>
+</div>
