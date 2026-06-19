@@ -1,23 +1,25 @@
+
 @if (user.role === 'admin') {
-    <div class="px-3 w-full">
+    <div class= "bg-gray-200 rounded-2xl w-full">
         <table class="w-full mt-5">
             <thead class="">
-                <tr>
+                <tr class="border-b border-b-gray-400">
                     @for (item of ['Username', "Role", "Created", 'Banned', '']; track $index) {
-                        <th class="py-2 text-left">{{item}}</th>
+                        <th class="py-3 first:pl-3 text-left text-[#404D61]">{{item}}</th>
                     } 
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="">
+                
                 @if (isLoading) {
-                    <tr class="bg-blue-200">
+                    <tr class="bg-blue-200 px-3">
                         <td colspan="5" class="text-center py-3 text-[#404D61]">Yuklanmoqda...</td>
                     </tr>
                 }@else {
-
-                    @for (item of users; track $index;) {
-                        <tr class="bg-gray-100">
-                            <td class="py-3 text-[#075ad7] text-left ">
+                    
+                    @for (item of dashService.users; track $index;) {
+                        <tr class="">
+                            <td class="p-3 text-[#075ad7] text-left ">
                                 <div class="flex gap-2 items-center">
                                     <div class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">{{item.username[0]}}</div>
                                     {{item.username}} 

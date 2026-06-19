@@ -15,14 +15,11 @@ export class Table implements OnInit {
   cdr = inject(ChangeDetectorRef)
   dashService = inject(DashboardService);
   user:User = JSON.parse(localStorage.getItem('user')!)
-  users:User[] = []
   isLoading:boolean = true;
   ngOnInit(): void {
     this.dashService.getAllusers().subscribe({
       next: (data)=>{
-        console.log(data);
-        
-        this.users=data.users;
+        this.dashService.users = data.users
         this.isLoading = false
         this.cdr.detectChanges()     
       },

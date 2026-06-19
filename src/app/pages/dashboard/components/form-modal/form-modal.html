@@ -17,6 +17,7 @@
                     placeholder="Username">
                 <lucide-icon (click)="clearInput()" name="circle-x" class="text-gray-400 cursor-pointer"></lucide-icon>
             </div>
+           
             <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
             [class.border-red-400] = "userData.get('password')?.invalid && userData.get('password')?.touched"
             >
@@ -39,7 +40,12 @@
                     <option value="admin" class="py-1.5 px-0.5 text-[16px] outline-none border-b border-b-gray-50">Admin</option>
                 </select>
             </div>
-
+             @if (error().length > 0) {
+                <small class="text-red-600">{{error()}}</small>
+            }
+             @if (isSuccess()) {
+                <small class="text-green-600">Foydalanuvchi yaratildi!</small>
+            }
             <button type="submit" class="w-full py-1.5 px-0.5 text-center bg-[#5B6AD0] rounded-md text-white cursor-pointer">Add</button>
         </form>
     </div>

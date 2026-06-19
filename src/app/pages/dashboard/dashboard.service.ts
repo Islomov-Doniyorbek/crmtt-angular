@@ -14,7 +14,7 @@ interface Uuser {
 })
 export class DashboardService {
   private http = inject(HttpClient)
-  
+  users:User[] = []
   private apiService = inject(Api)
   isHideStat: boolean = true; //statistika kartalari uchun
   isForm: boolean = false; //forma modal uchun
@@ -26,7 +26,7 @@ export class DashboardService {
   }
 
   createUser(user:User){
-    return this.http.post('http://localhost:3000/api/user/create', user)
+    return this.http.post<User>('http://localhost:3000/api/user/create', user)
   }
 
 

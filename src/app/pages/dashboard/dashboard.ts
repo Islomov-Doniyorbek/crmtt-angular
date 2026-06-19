@@ -18,15 +18,11 @@ export class Dashboard implements OnInit {
   dashService = inject(DashboardService);
   router = inject(Router)
   users = []
-  constructor() {
-  console.log('Dashboard yaratildi');
-}
   ngOnInit(): void {
-    console.log("Dashboard Build");
+    console.log("Dashboard yasaldi");
     
     this.dashService.getAllusers().subscribe({
       next: (res)=>{
-        
         console.log(res);
       },
       error: (err)=> {
@@ -41,6 +37,6 @@ export class Dashboard implements OnInit {
     
   }
   ngOnDestroy() {
-  console.log('Dashboard DESTROY');
+  console.log('Dashboard buzildi');
 }
 }
