@@ -4,7 +4,7 @@
             
             <h2 class="text-2xl font-medium">Add user</h2>
             <!-- <button type="button" (click)="dashService.openForm()" class="border px-2 py-1">Close</button> -->
-            <lucide-icon (click)="dashService.openForm()" class="cursor-pointer font-semibold hover:text-red-600" name="x"></lucide-icon>
+            <lucide-icon (click)="onClose()" class="cursor-pointer font-semibold hover:text-red-600" name="x"></lucide-icon>
         </div>
         <form [formGroup]="userData" (ngSubmit)="onSubmit()" class="flex w-full px-4 flex-col gap-4 items-center">
             <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"

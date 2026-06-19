@@ -10,7 +10,7 @@
                  placeholder="Search...">
         </div>
         @if (user.role === 'admin') {
-            <button (click)="dashService.openForm()" class="px-5 py-3 bg-[#5B6AD0] rounded-xl text-white border-gray-200">Add user</button>
+            <button (click)="dashService.open()" class="px-5 py-3 bg-[#5B6AD0] rounded-xl text-white border-gray-200">Add user</button>
         }@else {
             <button class="px-5 py-3 bg-[#5B6AD0] rounded-xl text-white border-gray-200">Add employee</button>
         }

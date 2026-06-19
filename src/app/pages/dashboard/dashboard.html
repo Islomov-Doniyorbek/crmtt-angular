@@ -8,7 +8,9 @@
             <app-table/>
         </main>
     </div>
-    @if (dashService.isForm) {
-        <app-form-modal/>
+    @if (dashService.isOpen) {
+      <app-form-modal
+        (close)="dashService.close()">
+      </app-form-modal>
     }
 </div>
