@@ -23,9 +23,7 @@ export class FormModal {
   onSubmit(){
     this.dashService.createUser(this.userData.value).subscribe({
       next: data=>{
-        console.log(data);
         this.dashService.users = [...this.dashService.users, data];
-        this.dashService.openForm();
       },
       error:err=>{
         console.log(err);
