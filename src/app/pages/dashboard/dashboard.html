@@ -5,12 +5,34 @@
         <main class="">
             <app-filter/>
             <app-statistics/>
-            <app-table/>
+            <app-table (action)="openModal($event.id, $event.type)"/>
         </main>
     </div>
     @if (dashService.isOpen) {
-      <app-form-modal
+      <app-form-modal 
         (close)="dashService.close()">
       </app-form-modal>
+    }
+    @if (modalType === 'delete') {
+      <app-delete-modal
+        (confirm)="onConfirmDeleteUser()"
+        (cancel) = "closemOdal()"
+        
+      >
+      </app-delete-modal>
+    }
+    @if (modalType === 'ban') {
+      <app-ban-modal
+        (confirm)="onConfirmBanModal()"
+        (cancel) = "closemOdal()"
+      >
+      </app-ban-modal>
+    }
+    @if (modalType === 'free') {
+      <app-free-modal
+        (confirm)="onConfirmFreeModal()"
+        (cancel) = "closemOdal()"
+      >
+      </app-free-modal>
     }
 </div>

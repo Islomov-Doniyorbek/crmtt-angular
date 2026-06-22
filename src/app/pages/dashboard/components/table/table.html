@@ -18,22 +18,36 @@
                 }@else {
                     
                     @for (item of dashService.users; track $index;) {
-                        <tr class="">
-                            <td class="p-3 text-[#075ad7] text-left ">
+                        <tr class="bg-white border-y border-gray-200">
+                            <td class="p-3 text-[#075ad7] text-left">
                                 <div class="flex gap-2 items-center">
-                                    <div class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">{{item.username[0]}}</div>
+                                    <div class="w-6 h-6 rounded-full flex items-center justify-center text-white"
+                                        [class.bg-blue-500] = "!item.banned"
+                                        [class.bg-red-500] = "item.banned"
+                                    >{{item.username[0]}}</div>
                                     {{item.username}} 
                                 </div>
                             </td>
                             <td class="py-3 text-[#404D61] text-left">{{item.role}}</td>
                             <td class="py-3 text-[#404D61] text-left">{{item.created_at | date:'medium'}}</td>
                             <!-- <td class="py-3 text-[#404D61] text-left">{{item.password | pipes}}</td> -->
-                            <td class="py-3 text-[#404D61] text-left">{{item.banned ? "Ban" : "Clear"}}</td>
+                            <td class="py-3 text-[#404D61] text-left"
+                                [class.text-red-600] = item.banned
+                                [class.text-blue-600] = !item.banned
+                            >{{item.banned ? "Ban" : "Free"}}</td>
                             <td class="py-3 w-1/12 text-[#404D61] ">
                                 <div class="flex items-center justify-end px-4 gap-3 w-full">
-                                    <lucide-icon name="pen" class="text-orange-500 w-5"></lucide-icon>
-                                    <lucide-icon name="trash" class="text-red-500 w-5"></lucide-icon>
-                                    <lucide-icon name="ban" class="text-red-800 w-5"></lucide-icon>
+                                    @if (item.role !== 'admin') {
+                                        <lucide-icon name="pen" class="text-orange-500 cursor-pointer w-5"></lucide-icon>
+                                        <lucide-icon (click)="onAction(item.id, 'delete')" name="trash" class="text-red-500 cursor-pointer w-5"></lucide-icon>
+                                        <lucide-icon (click)="onAction(item.id, item.banned ? 'free' : 'ban')" [name]="item.banned ? 'user-check' : 'user-x'" 
+                                        class="cursor-pointer w-5"
+                                        [class.text-red-600]="item.banned"
+                                        [class.text-green-600]="!item.banned"
+                                        ></lucide-icon>
+                                    }@else {
+                                        <lucide-icon name="user" class="text-blue-800 cursor-pointer w-5"></lucide-icon>
+                                    }
                                 </div>
                             </td>
                         </tr>

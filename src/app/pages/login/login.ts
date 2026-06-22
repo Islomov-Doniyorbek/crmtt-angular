@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule, Home, User } from 'lucide-angular';
 import { LoginService } from './login.service';
@@ -18,9 +18,8 @@ export class Login {
     password: new FormControl('', Validators.required),
   })
   isHide: boolean = false
-
+  error = signal('')
   onLogin(){
-    console.log(this.formData.value);
     this.loginService.login(this.formData.value).subscribe({
       next: (res)=>{
         console.log(res);
@@ -30,6 +29,15 @@ export class Login {
       },
       error: (err)=>{
         console.log(err);
+        if (err.status === 404) {
+          this.error.set("Bunday foydalanuvchi mavjud emas!")
+        }
+        if (err.status === 500) {
+          this.error.set("Serverda xatolik!!!")
+        }
+        setTimeout(() => {
+          this.error.set('')
+        }, 3000);
         
       }
     })
