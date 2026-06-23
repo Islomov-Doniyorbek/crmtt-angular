@@ -10,6 +10,7 @@ import { FormModal } from "./components/form-modal/form-modal";
 import { DeleteModal } from "./components/delete-modal/delete-modal";
 import { BanModal } from './components/ban-modal/ban-modal';
 import { FreeModal } from "./components/free-modal/free-modal";
+import { User } from '../../responses';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,46 +18,57 @@ import { FreeModal } from "./components/free-modal/free-modal";
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit {
+export class Dashboard {
   dashService = inject(DashboardService);
   router = inject(Router)
   cdr = inject(ChangeDetectorRef)
   
-  
-  
   userId:string = ''
-  modalType: 'delete' | 'ban' | 'free' | null = null
+  modalType: 'delete' | 'ban' | 'free' | 'form' | null = null
+  selectUser: any  = null
 
 
-
-  ngOnInit(): void {
-    this.dashService.getAllusers().subscribe({
-      next: (res)=>{
-        console.log(res);
-      },
-      error: (err)=> {
-        console.log(err);
-        if (err.status===401) {
-          this.router.navigate(['/login'])
-        }
-      }
-      
-    })
-    
-  }
   saveId(id: string) {
     console.log(id);    
     this.userId = id
   }
 
 
-  openModal(id: string, type: 'delete' | 'ban' | 'free'){
+  openModal(id: string, type: 'delete' | 'ban' | 'free' | 'form' | null){
     this.userId = id;
     this.modalType = type
+  }
+  openFormModal(user?: User){
+    this.selectUser = user
+    this.modalType = 'form'
   }
   closemOdal(){
     this.userId = ''
     this.modalType = null
+  }
+
+
+  onFormSubmit(data: User){
+
+    this.dashService.createUser(data).subscribe({
+      next: data => {
+        this.dashService.users = [
+          ...this.dashService.users,
+          data
+        ];
+      },
+      error:err=>{
+        console.log(err);
+        console.log(err.status);
+        // if(err.status === 409){
+        //   this.error.set(err.error.message)
+        // }
+        // setTimeout(() => {
+        //   this.error.set('')
+        // }, 4000);
+      }
+      
+    })
   }
 
   onConfirmDeleteUser(){    

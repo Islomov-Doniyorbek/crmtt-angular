@@ -11,9 +11,9 @@
             </thead>
             <tbody class="">
                 
-                @if (isLoading) {
+                @if (isLoading()) {
                     <tr class="bg-blue-200 px-3">
-                        <td colspan="5" class="text-center py-3 text-[#404D61]">Yuklanmoqda...</td>
+                        <td colspan="5" class="text-center py-3 text-[#404D61]">Yuklanmoqda... {{isLoading}} </td>
                     </tr>
                 }@else {
                     
@@ -38,7 +38,7 @@
                             <td class="py-3 w-1/12 text-[#404D61] ">
                                 <div class="flex items-center justify-end px-4 gap-3 w-full">
                                     @if (item.role !== 'admin') {
-                                        <lucide-icon name="pen" class="text-orange-500 cursor-pointer w-5"></lucide-icon>
+                                        <lucide-icon (click)="openForm(item.id, null)" name="pen" class="text-orange-500 cursor-pointer w-5"></lucide-icon>
                                         <lucide-icon (click)="onAction(item.id, 'delete')" name="trash" class="text-red-500 cursor-pointer w-5"></lucide-icon>
                                         <lucide-icon (click)="onAction(item.id, item.banned ? 'free' : 'ban')" [name]="item.banned ? 'user-check' : 'user-x'" 
                                         class="cursor-pointer w-5"

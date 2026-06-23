@@ -35,6 +35,9 @@ export class Login {
         if (err.status === 500) {
           this.error.set("Serverda xatolik!!!")
         }
+        if (err.status === 0) {
+          this.error.set("Serverda o'chirilgan!!!")
+        }
         setTimeout(() => {
           this.error.set('')
         }, 3000);

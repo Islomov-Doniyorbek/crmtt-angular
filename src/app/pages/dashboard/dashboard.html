@@ -8,8 +8,9 @@
             <app-table (action)="openModal($event.id, $event.type)"/>
         </main>
     </div>
-    @if (dashService.isOpen) {
-      <app-form-modal 
+    @if (modalType === 'form') {
+      <app-form-modal
+        
         (close)="dashService.close()">
       </app-form-modal>
     }
@@ -17,7 +18,6 @@
       <app-delete-modal
         (confirm)="onConfirmDeleteUser()"
         (cancel) = "closemOdal()"
-        
       >
       </app-delete-modal>
     }

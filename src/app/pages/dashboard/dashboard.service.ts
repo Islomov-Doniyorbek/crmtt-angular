@@ -18,6 +18,8 @@ export class DashboardService {
   private apiService = inject(Api)
   isHideStat: boolean = true; //statistika kartalari uchun </D>
   isOpen: boolean = false; //forma modal uchun </D>
+  // editUser: User = [];
+
   getAllusers():Observable<RespUsers>{
     const token = localStorage.getItem('accToken')
     return this.http.get<RespUsers>('http://localhost:3000/api/users', {

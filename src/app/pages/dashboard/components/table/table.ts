@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { DashboardService } from '../../dashboard.service';
 import { User } from '../../../../responses';
-import { PipesPipe } from '../../../../pipes-pipe';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -12,30 +12,42 @@ import { DatePipe } from '@angular/common';
   styleUrl: './table.css',
 })
 export class Table implements OnInit {
-  @Output() action = new EventEmitter<{ id: string, type: 'delete' | 'ban' | 'free' }>();
+  @Output() action = new EventEmitter<{ id: string, type: 'delete' | 'ban' | 'free' | null}>();
   @Output() id = new EventEmitter<string>()
   cdr = inject(ChangeDetectorRef)
+  router = inject(Router)
   dashService = inject(DashboardService);
   user:User = JSON.parse(localStorage.getItem('user')!)
-  isLoading:boolean = true;
+  isLoading = signal(false);
 
 
   ngOnInit(): void {
+    this.isLoading.set(true)
     this.dashService.getAllusers().subscribe({
       next: (data)=>{
         this.dashService.users = data.users
-        this.isLoading = false
+        this.isLoading.set(false)
         this.cdr.detectChanges()
       },
       error: err=>{
+        this.isLoading.set(false)
+        console.log(this.isLoading);
         console.log(err)
-        this.isLoading = false
+
+
+        if (err.status===401) {
+          this.router.navigate(['/login'])
+        }
       }
     })
   }
 
   onAction(id: string, type: 'delete' | 'ban' | 'free') {
     this.action.emit({ id, type });
+  }
+  openForm(id: string, type: null){
+    this.dashService.open();
+    this.action.emit({id, type})
   }
 
   onDelete(id: string){

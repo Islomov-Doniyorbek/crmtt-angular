@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 import { LucideAngularModule } from 'lucide-angular';
 import { FormControl, FormControlName, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,7 +11,9 @@ import { User } from '../../../../responses';
   styleUrl: './form-modal.css',
 })
 export class FormModal {
-  @Output() close = new EventEmitter()
+  @Input() user: User | null = null
+  @Output() submit = new EventEmitter()
+  @Output() cancel = new EventEmitter()
   dashService = inject(DashboardService)
   userData: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -22,27 +24,32 @@ export class FormModal {
   error = signal('')
   users = this.dashService.users
   onSubmit(){
-    this.dashService.createUser(this.userData.value).subscribe({
-      next: data => {
-        this.dashService.users = [
-          ...this.dashService.users,
-          data
-        ];
-        this.close.emit()
-      },
-      error:err=>{
-        console.log(err);
-        console.log(err.status);
-        if(err.status === 409){
-          this.error.set(err.error.message)
-        }
-        setTimeout(() => {
-          this.error.set('')
-        }, 4000);
-      }
+    this.submit.emit(this.userData.value)
+    // this.dashService.createUser(this.userData.value).subscribe({
+    //   next: data => {
+    //     this.dashService.users = [
+    //       ...this.dashService.users,
+    //       data
+    //     ];
+    //   },
+    //   error:err=>{
+    //     console.log(err);
+    //     console.log(err.status);
+    //     if(err.status === 409){
+    //       this.error.set(err.error.message)
+    //     }
+    //     setTimeout(() => {
+    //       this.error.set('')
+    //     }, 4000);
+    //   }
       
-    })
+    // })
   }
+
+  onCancel(){
+    this.cancel.emit()
+  }
+
   clearInput(){
     this.userData.reset({
       username: '',
@@ -52,7 +59,4 @@ export class FormModal {
   }
 
 
-  onClose(){
-    this.close.emit()
-  }
 }
