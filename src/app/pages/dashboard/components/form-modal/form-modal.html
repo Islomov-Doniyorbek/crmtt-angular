@@ -46,7 +46,7 @@
              @if (isSuccess()) {
                 <small class="text-green-600">Foydalanuvchi yaratildi!</small>
             }
-            <button type="submit" class="w-full py-1.5 px-0.5 text-center bg-[#5B6AD0] rounded-md text-white cursor-pointer">Add</button>
+            <button type="submit" [disabled]="userData.invalid" [class.opacity-50]="userData.invalid" class="w-full py-1.5 px-0.5 text-center bg-[#5B6AD0] rounded-md text-white cursor-pointer">Add</button>
         </form>
     </div>
 </div>

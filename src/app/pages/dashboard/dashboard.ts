@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import { Navbar } from "./components/navbar/navbar";
 import { Sidebar } from "./components/sidebar/sidebar";
 import { DashboardService } from './dashboard.service';
@@ -23,48 +23,47 @@ export class Dashboard {
   cdr = inject(ChangeDetectorRef)
   
   userId:string = ''
-  modalType: 'delete' | 'ban' | 'free' | 'form' | null = null
+  modalType = signal<'delete' | 'ban' | 'free' | 'form' | null>(null)
   selectUser: any  = null
+  error = signal('')
 
 
-  saveId(id: string) {
-    console.log(id);    
+  saveId(id: string) {  
     this.userId = id
   }
 
-
   openModal(id: string, type: 'delete' | 'ban' | 'free' | 'form' | null){
     this.userId = id;
-    this.modalType = type
+    this.modalType.set(type)
   }
   openFormModal(user?: User){
     this.selectUser = user
-    this.modalType = 'form'
+    this.modalType.set('form')
   }
   closemOdal(){
     this.userId = ''
-    this.modalType = null
+    this.modalType.set(null)
   }
 
 
   onFormSubmit(data: User){
-
     this.dashService.createUser(data).subscribe({
-      next: data => {
+      next: data => {        
         this.dashService.users = [
           ...this.dashService.users,
           data
         ];
+        this.closemOdal()
       },
       error:err=>{
         console.log(err);
-        console.log(err.status);
+        this.error.set(err.error.message)
         // if(err.status === 409){
         //   this.error.set(err.error.message)
         // }
-        // setTimeout(() => {
-        //   this.error.set('')
-        // }, 4000);
+        setTimeout(() => {
+          this.error.set('')
+        }, 4000);
       }
       
     })
@@ -74,8 +73,7 @@ export class Dashboard {
     this.dashService.deleteUser(this.userId).subscribe({
       next: data=>{
         this.dashService.users = this.dashService.users.filter(user => user.id !== this.userId)
-        this.userId = ''
-        this.modalType = null
+        this.closemOdal()
         this.cdr.detectChanges()
       },
       error: err=>console.log(err)
@@ -88,8 +86,7 @@ export class Dashboard {
         this.dashService.users = this.dashService.users.map(user=>
           user.id === this.userId ? {...user, banned: true} : user
         )
-        this.modalType= null
-        this.userId = ''
+        this.closemOdal()
         this.cdr.detectChanges()
       }, error: err=>console.log(err)
       
@@ -102,8 +99,7 @@ export class Dashboard {
         this.dashService.users = this.dashService.users.map(user=>
           user.id === this.userId ? {...user, banned: false} : user
         )
-        this.modalType= null
-        this.userId = ''
+        this.closemOdal()
         this.cdr.detectChanges()
       }, error: err=>console.log(err)
       

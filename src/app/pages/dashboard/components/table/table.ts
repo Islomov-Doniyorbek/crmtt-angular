@@ -45,7 +45,6 @@ export class Table implements OnInit {
     this.action.emit({ id, type });
   }
   openForm(id: string, type: null){
-    this.dashService.open();
     this.action.emit({id, type})
   }
 

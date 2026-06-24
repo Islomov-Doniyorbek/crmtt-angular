@@ -17,7 +17,6 @@ export class DashboardService {
   users:User[] = []
   private apiService = inject(Api)
   isHideStat: boolean = true; //statistika kartalari uchun </D>
-  isOpen: boolean = false; //forma modal uchun </D>
   // editUser: User = [];
 
   getAllusers():Observable<RespUsers>{
@@ -53,11 +52,5 @@ export class DashboardService {
 
   hideStat(){
     this.isHideStat = !this.isHideStat
-  }
-  open(){
-    this.isOpen = true
-  }
-  close(){
-    this.isOpen = false
   }
 }

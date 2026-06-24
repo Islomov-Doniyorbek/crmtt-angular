@@ -24,7 +24,7 @@ export class Login {
         console.log(res);
         localStorage.setItem('accToken', res.token)
         localStorage.setItem('user', JSON.stringify(res.user))
-        this.router.navigate(['/'])
+        this.router.navigate([''])
       },
       error: (err)=>{
         console.log(err);

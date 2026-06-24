@@ -11,19 +11,20 @@ import { User } from '../../../../shared/models/responses';
 })
 export class FormModal {
   @Input() user: User | null = null
-  @Output() submit = new EventEmitter()
+  @Input() error: any = null
+  @Output() submitted = new EventEmitter()
   @Output() cancel = new EventEmitter()
+
   dashService = inject(DashboardService)
   userData: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
-    role: new FormControl('', Validators.required),
+    role: new FormControl('user', Validators.required),
   })
   isSuccess = signal(false)
-  error = signal('')
   users = this.dashService.users
   onSubmit(){
-    this.submit.emit(this.userData.value)
+    this.submitted.emit(this.userData.value)
   }
 
   onCancel(){

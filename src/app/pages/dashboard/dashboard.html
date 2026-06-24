@@ -1,34 +1,37 @@
 <div class="flex relative w-full h-screen overflow-hidden">
     <app-sidebar></app-sidebar>
     <div class="wrapper px-3 pb-5 w-full max-h-screen overflow-auto">
-        <app-navbar></app-navbar>
+        <app-navbar (openModal)="openFormModal()"></app-navbar>
         <main class="">
             <app-filter/>
             <app-statistics/>
             <app-table (action)="openModal($event.id, $event.type)"/>
         </main>
     </div>
-    @if (modalType === 'form') {
+    @if (modalType() === 'form') {
       <app-form-modal
-        
-        (close)="dashService.close()">
+        [user]="selectUser"
+        [error]="error"
+        (submitted)="onFormSubmit($event)"
+        (cancel)="closemOdal()"
+        >
       </app-form-modal>
     }
-    @if (modalType === 'delete') {
+    @if (modalType() === 'delete') {
       <app-delete-modal
         (confirm)="onConfirmDeleteUser()"
         (cancel) = "closemOdal()"
       >
       </app-delete-modal>
     }
-    @if (modalType === 'ban') {
+    @if (modalType() === 'ban') {
       <app-ban-modal
         (confirm)="onConfirmBanModal()"
         (cancel) = "closemOdal()"
       >
       </app-ban-modal>
     }
-    @if (modalType === 'free') {
+    @if (modalType() === 'free') {
       <app-free-modal
         (confirm)="onConfirmFreeModal()"
         (cancel) = "closemOdal()"
