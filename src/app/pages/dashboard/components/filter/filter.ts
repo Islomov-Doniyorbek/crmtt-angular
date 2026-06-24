@@ -6,7 +6,6 @@ import { DashboardService } from '../../dashboard.service';
   selector: 'app-filter',
   imports: [LucideAngularModule],
   templateUrl: './filter.html',
-  styleUrl: './filter.css',
 })
 export class Filter {
   dashService = inject(DashboardService)

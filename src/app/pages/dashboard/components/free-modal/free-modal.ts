@@ -4,7 +4,6 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
   selector: 'app-free-modal',
   imports: [],
   templateUrl: './free-modal.html',
-  styleUrl: './free-modal.css',
 })
 export class FreeModal {
   @Input() close = false

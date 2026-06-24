@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   imports: [LucideAngularModule, ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
 })
 export class Login {
   loginService = inject(LoginService)

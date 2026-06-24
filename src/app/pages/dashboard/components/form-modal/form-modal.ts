@@ -2,13 +2,12 @@ import { Component, EventEmitter, inject, Input, Output, signal } from '@angular
 import { DashboardService } from '../../dashboard.service';
 import { LucideAngularModule } from 'lucide-angular';
 import { FormControl, FormControlName, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User } from '../../../../responses';
+import { User } from '../../../../shared/models/responses';
 
 @Component({
   selector: 'app-form-modal',
   imports: [LucideAngularModule, ReactiveFormsModule],
   templateUrl: './form-modal.html',
-  styleUrl: './form-modal.css',
 })
 export class FormModal {
   @Input() user: User | null = null
@@ -25,25 +24,6 @@ export class FormModal {
   users = this.dashService.users
   onSubmit(){
     this.submit.emit(this.userData.value)
-    // this.dashService.createUser(this.userData.value).subscribe({
-    //   next: data => {
-    //     this.dashService.users = [
-    //       ...this.dashService.users,
-    //       data
-    //     ];
-    //   },
-    //   error:err=>{
-    //     console.log(err);
-    //     console.log(err.status);
-    //     if(err.status === 409){
-    //       this.error.set(err.error.message)
-    //     }
-    //     setTimeout(() => {
-    //       this.error.set('')
-    //     }, 4000);
-    //   }
-      
-    // })
   }
 
   onCancel(){

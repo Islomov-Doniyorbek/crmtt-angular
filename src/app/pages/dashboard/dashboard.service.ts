@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Api } from '../../services/api';
-import { RespUsers, User } from '../../responses';
+import { Api } from '../../core/services/api';
+import { RespUsers, User } from '../../shared/models/responses';
 import { Observable } from 'rxjs';
 interface Uuser {
   username: string

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { DashboardService } from '../../dashboard.service';
-import { User } from '../../../../responses';
+import { User } from '../../../../shared/models/responses';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   selector: 'app-table',
   imports: [LucideAngularModule, DatePipe],
   templateUrl: './table.html',
-  styleUrl: './table.css',
 })
 export class Table implements OnInit {
   @Output() action = new EventEmitter<{ id: string, type: 'delete' | 'ban' | 'free' | null}>();

@@ -5,7 +5,6 @@ import { LucideAngularModule } from 'lucide-angular';
   selector: 'app-ban-modal',
   imports: [LucideAngularModule],
   templateUrl: './ban-modal.html',
-  styleUrl: './ban-modal.css',
 })
 export class BanModal {
   @Input() close = false

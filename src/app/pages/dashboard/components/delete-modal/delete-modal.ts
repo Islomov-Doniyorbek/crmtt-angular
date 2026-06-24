@@ -6,7 +6,6 @@ import { LucideAngularModule } from 'lucide-angular';
   selector: 'app-delete-modal',
   imports: [LucideAngularModule],
   templateUrl: './delete-modal.html',
-  styleUrl: './delete-modal.css',
 })
 export class DeleteModal {
   @Input() close = false

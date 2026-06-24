@@ -10,13 +10,12 @@ import { FormModal } from "./components/form-modal/form-modal";
 import { DeleteModal } from "./components/delete-modal/delete-modal";
 import { BanModal } from './components/ban-modal/ban-modal';
 import { FreeModal } from "./components/free-modal/free-modal";
-import { User } from '../../responses';
+import { User } from '../../shared/models/responses';
 
 @Component({
   selector: 'app-dashboard',
   imports: [Navbar, Sidebar, Filter, Statistics, Table, FormModal, DeleteModal, BanModal, FreeModal],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css',
 })
 export class Dashboard {
   dashService = inject(DashboardService);
