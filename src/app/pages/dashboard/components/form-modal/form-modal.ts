@@ -1,7 +1,7 @@
-import { Component, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { DashboardService } from '../../dashboard.service';
 import { LucideAngularModule } from 'lucide-angular';
-import { FormControl, FormControlName, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../../shared/models/responses';
 
 @Component({
@@ -9,7 +9,7 @@ import { User } from '../../../../shared/models/responses';
   imports: [LucideAngularModule, ReactiveFormsModule],
   templateUrl: './form-modal.html',
 })
-export class FormModal {
+export class FormModal implements OnInit {
   @Input() user: User | null = null
   @Input() error: any = null
   @Output() submitted = new EventEmitter()
@@ -18,14 +18,24 @@ export class FormModal {
   dashService = inject(DashboardService)
   userData: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', !this.user ? null : Validators.required),
     role: new FormControl('user', Validators.required),
   })
   isSuccess = signal(false)
-  users = this.dashService.users
+
+  ngOnInit(): void {
+    if (this.user) {
+      this.userData.patchValue({
+        username: this.user.username,
+        role: this.user.role,
+      })
+    }
+  }
+
   onSubmit(){
     this.submitted.emit(this.userData.value)
   }
+
 
   onCancel(){
     this.cancel.emit()

@@ -19,3 +19,7 @@ export interface RespUsers {
     status: number
     users: User[]
 }
+export interface RespUpdateUser {
+    status: number
+    result: User
+}

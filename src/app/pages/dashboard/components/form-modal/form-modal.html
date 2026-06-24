@@ -18,16 +18,18 @@
                 <lucide-icon (click)="clearInput()" name="circle-x" class="text-gray-400 cursor-pointer"></lucide-icon>
             </div>
            
-            <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
-            [class.border-red-400] = "userData.get('password')?.invalid && userData.get('password')?.touched"
-            >
-                <input
-                    class="w-full flex items-center py-1.5 px-0.5 text-[16px] outline-none hover:outline-none border-0 placeholder:text-gray-400"
-                    type="text"
-                    formControlName="password"
-                    placeholder="Password">
-                <lucide-icon name="dices" class="text-gray-400 cursor-pointer transition duration-700 hover:rotate-180 hover:text-yellow-500"></lucide-icon>
-            </div>
+            @if (!user) {
+                <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
+                [class.border-red-400] = "userData.get('password')?.invalid && userData.get('password')?.touched"
+                >
+                    <input
+                        class="w-full flex items-center py-1.5 px-0.5 text-[16px] outline-none hover:outline-none border-0 placeholder:text-gray-400"
+                        type="text"
+                        formControlName="password"
+                        placeholder="Password">
+                    <lucide-icon name="dices" class="text-gray-400 cursor-pointer transition duration-700 hover:rotate-180 hover:text-yellow-500"></lucide-icon>
+                </div>
+            }
             <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
             [class.border-red-400] = "userData.get('username')?.invalid && userData.get('username')?.touched"
             >

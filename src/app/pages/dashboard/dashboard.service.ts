@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Api } from '../../core/services/api';
-import { RespUsers, User } from '../../shared/models/responses';
+import { RespUpdateUser, RespUsers, User } from '../../shared/models/responses';
 import { Observable } from 'rxjs';
 interface Uuser {
   username: string
@@ -28,6 +28,10 @@ export class DashboardService {
 
   createUser(user:User){
     return this.http.post<User>('http://localhost:3000/api/user/create', user)
+  }
+
+  updateUser(user: User, id: string):Observable<RespUpdateUser>{
+    return this.http.put<RespUpdateUser>(`http://localhost:3000/api/user/update/${id}`, user)
   }
 
   deleteUser(id: string){

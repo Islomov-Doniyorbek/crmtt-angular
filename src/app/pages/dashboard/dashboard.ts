@@ -47,26 +47,43 @@ export class Dashboard {
 
 
   onFormSubmit(data: User){
-    this.dashService.createUser(data).subscribe({
-      next: data => {        
-        this.dashService.users = [
-          ...this.dashService.users,
-          data
-        ];
-        this.closemOdal()
-      },
-      error:err=>{
-        console.log(err);
-        this.error.set(err.error.message)
-        // if(err.status === 409){
-        //   this.error.set(err.error.message)
-        // }
-        setTimeout(() => {
-          this.error.set('')
-        }, 4000);
-      }
-      
-    })
+    console.log(this.selectUser.id);
+    
+    if(this.selectUser){
+      this.dashService.updateUser(data, this.selectUser.id).subscribe({
+        next: data=> {
+          this.dashService.users = this.dashService.users.map(user =>
+                user.id === this.selectUser.id ? { ...user, ...data.result } : user
+            ); 
+            
+            this.modalType.set(null)
+        },
+        error: err=>console.log(err)
+        
+        
+      })
+    }else{
+      this.dashService.createUser(data).subscribe({
+        next: data => {        
+          this.dashService.users = [
+            ...this.dashService.users,
+            data
+          ];
+          this.closemOdal()
+        },
+        error:err=>{
+          console.log(err);
+          this.error.set(err.error.message)
+          // if(err.status === 409){
+          //   this.error.set(err.error.message)
+          // }
+          setTimeout(() => {
+            this.error.set('')
+          }, 4000);
+        }
+        
+      })
+    }
   }
 
   onConfirmDeleteUser(){    

@@ -5,7 +5,7 @@
         <main class="">
             <app-filter/>
             <app-statistics/>
-            <app-table (action)="openModal($event.id, $event.type)"/>
+            <app-table (editUser)="openFormModal($event)" (action)="openModal($event.id, $event.type)"/>
         </main>
     </div>
     @if (modalType() === 'form') {

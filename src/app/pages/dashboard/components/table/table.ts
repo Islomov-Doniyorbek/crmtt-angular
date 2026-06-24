@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
   templateUrl: './table.html',
 })
 export class Table implements OnInit {
-  @Output() action = new EventEmitter<{ id: string, type: 'delete' | 'ban' | 'free' | null}>();
+  @Output() action = new EventEmitter<{ id: string, type: 'delete' | 'ban' | 'free' | 'form' | null}>();
   @Output() id = new EventEmitter<string>()
+  @Output() editUser = new EventEmitter<User>()
   cdr = inject(ChangeDetectorRef)
   router = inject(Router)
   dashService = inject(DashboardService);
@@ -32,8 +33,6 @@ export class Table implements OnInit {
         this.isLoading.set(false)
         console.log(this.isLoading);
         console.log(err)
-
-
         if (err.status===401) {
           this.router.navigate(['/login'])
         }
@@ -41,10 +40,12 @@ export class Table implements OnInit {
     })
   }
 
-  onAction(id: string, type: 'delete' | 'ban' | 'free') {
+  
+  onAction(id: string, type: 'delete' | 'ban' | 'free' | 'form') {
     this.action.emit({ id, type });
   }
-  openForm(id: string, type: null){
+  openForm(user: User, id: string,  type: 'delete' | 'ban' | 'free' | 'form'){
+    this.editUser.emit(user)
     this.action.emit({id, type})
   }
 
