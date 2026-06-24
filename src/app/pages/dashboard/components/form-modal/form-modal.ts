@@ -33,6 +33,8 @@ export class FormModal implements OnInit {
   }
 
   onSubmit(){
+    console.log(this.userData.value);
+    
     this.submitted.emit(this.userData.value)
   }
 

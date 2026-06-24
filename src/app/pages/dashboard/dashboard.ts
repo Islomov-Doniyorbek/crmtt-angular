@@ -47,7 +47,7 @@ export class Dashboard {
 
 
   onFormSubmit(data: User){
-    console.log(this.selectUser.id);
+    // console.log(this.selectUser.id);
     
     if(this.selectUser){
       this.dashService.updateUser(data, this.selectUser.id).subscribe({
