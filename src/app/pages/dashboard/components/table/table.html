@@ -85,10 +85,10 @@
                     <td class="py-3 text-[#404D61] text-left">{{item.email}}</td>
                     <td class="py-3 text-[#404D61] text-left">{{item.status}}</td>
                     <td class="py-3 text-[#404D61] text-left">{{item.role}}</td>
-                    <td class="py-3 text-[#404D61] text-left ">
-                        <div class="flex items-center gap-3 w-full">
-                            <lucide-icon name="pen" class="text-orange-500"></lucide-icon>
-                            <lucide-icon name="trash" class="text-red-500"></lucide-icon>
+                    <td class="py-3 w-1/12 text-[#404D61] ">
+                        <div class="flex items-center justify-end px-4 gap-3 w-full">
+                            <lucide-icon (click)="openForm(item, item.id, 'form')" name="pen" class="text-orange-500"></lucide-icon>
+                            <lucide-icon (click)="onAction(item.id, 'delete')" name="trash" class="text-red-500"></lucide-icon>
                         </div>
                     </td>
                 </tr>

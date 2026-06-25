@@ -30,8 +30,8 @@ export class DashboardService {
     return this.http.put<RespUpdateUser>(`http://localhost:3000/api/user/update/${id}`, user)
   }
 
-  deleteUser(id: string){
-    return this.http.delete(`http://localhost:3000/api/user/delete/${id}`)
+  deleteUser(id: string, endp: string){
+    return this.http.delete(`http://localhost:3000/api/${endp}/delete/${id}`)
   }
 
   banUser(id: string){

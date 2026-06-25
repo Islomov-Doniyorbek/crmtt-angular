@@ -24,18 +24,18 @@ export class Dashboard {
   router = inject(Router)
   cdr = inject(ChangeDetectorRef)
   
-  userId:string = ''
+  removeItemId:string = ''
   modalType = signal<'delete' | 'ban' | 'free' | 'form' | null>(null)
   selectUser: any  = null
   error = signal('')
 
 
   saveId(id: string) {  
-    this.userId = id
+    this.removeItemId = id
   }
 
   openModal(id: string, type: 'delete' | 'ban' | 'free' | 'form' | null){
-    this.userId = id;
+    this.removeItemId = id;
     this.modalType.set(type)
   }
   openFormModal(user?: User | Employee){
@@ -43,7 +43,7 @@ export class Dashboard {
     this.modalType.set('form')
   }
   closemOdal(){
-    this.userId = ''
+    this.removeItemId = ''
     this.modalType.set(null)
   }
 
@@ -57,12 +57,9 @@ export class Dashboard {
           this.dashService.users = this.dashService.users.map(user =>
                 user.id === this.selectUser.id ? { ...user, ...data.result } : user
             ); 
-            
             this.modalType.set(null)
         },
-        error: err=>console.log(err)
-        
-        
+        error: err=>console.log(err)        
       })
     }else{
       console.log(event.data);
@@ -79,9 +76,6 @@ export class Dashboard {
         error:err=>{
           console.log(err);
           this.error.set(err.error.message)
-          // if(err.status === 409){
-          //   this.error.set(err.error.message)
-          // }
           setTimeout(() => {
             this.error.set('')
           }, 4000);
@@ -92,9 +86,13 @@ export class Dashboard {
   }
 
   onConfirmDeleteUser(){    
-    this.dashService.deleteUser(this.userId).subscribe({
+    this.dashService.deleteUser(this.removeItemId, this.gService.whoUser() ? 'user' : 'employee').subscribe({
       next: data=>{
-        this.dashService.users = this.dashService.users.filter(user => user.id !== this.userId)
+        if (this.gService.whoUser()) {
+          this.dashService.users = this.dashService.users.filter(user => user.id !== this.removeItemId)
+        }else{
+          this.dashService.employees = this.dashService.employees.filter(empl => empl.id !== this.removeItemId)
+        }
         this.closemOdal()
         this.cdr.detectChanges()
       },
@@ -102,11 +100,11 @@ export class Dashboard {
     })
   }
   onConfirmBanModal(){
-    this.dashService.banUser(this.userId).subscribe({
+    this.dashService.banUser(this.removeItemId).subscribe({
       next: (data)=>{
         console.log(data);
         this.dashService.users = this.dashService.users.map(user=>
-          user.id === this.userId ? {...user, banned: true} : user
+          user.id === this.removeItemId ? {...user, banned: true} : user
         )
         this.closemOdal()
         this.cdr.detectChanges()
@@ -115,11 +113,11 @@ export class Dashboard {
     })
   }
   onConfirmFreeModal(){
-    this.dashService.freeUser(this.userId).subscribe({
+    this.dashService.freeUser(this.removeItemId).subscribe({
       next: (data)=>{
         console.log(data);
         this.dashService.users = this.dashService.users.map(user=>
-          user.id === this.userId ? {...user, banned: false} : user
+          user.id === this.removeItemId ? {...user, banned: false} : user
         )
         this.closemOdal()
         this.cdr.detectChanges()
