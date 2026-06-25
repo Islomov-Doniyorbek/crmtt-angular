@@ -8,7 +8,7 @@ import { User } from '../../../../shared/models/responses';
   imports: [LucideAngularModule],
   templateUrl: './navbar.html',
 })
-export class Navbar implements OnInit {
+export class Navbar {
 
   @Output() openModal = new EventEmitter<void>()
   dashService = inject(DashboardService)
@@ -16,10 +16,6 @@ export class Navbar implements OnInit {
 
   openFormModal(){
     this.openModal.emit()
-  }
-  ngOnInit(): void {
-    console.log(this.user);
-    
   }
   
 }

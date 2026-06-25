@@ -2,7 +2,7 @@ import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '
 import { DashboardService } from '../../dashboard.service';
 import { LucideAngularModule } from 'lucide-angular';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User } from '../../../../shared/models/responses';
+import { Employee, User } from '../../../../shared/models/responses';
 
 @Component({
   selector: 'app-form-modal',
@@ -11,6 +11,8 @@ import { User } from '../../../../shared/models/responses';
 })
 export class FormModal implements OnInit {
   @Input() user: User | null = null
+  @Input() employee: Employee | null = null
+
   @Input() error: any = null
   @Output() submitted = new EventEmitter()
   @Output() cancel = new EventEmitter()
@@ -36,17 +38,27 @@ export class FormModal implements OnInit {
   isSuccess = signal(false)
 
   ngOnInit(): void {
-    if (this.user) {
-      this.userData.patchValue({
-        username: this.user.username,
-        role: this.user.role,
-      })
+    if (this._user.role === 'admin') {
+      if (this.user) {
+        this.userData.patchValue({
+          username: this.user.username,
+          role: this.user.role,
+        })
+      }
+    }else{
+      if (this.user) {
+        this.userData.patchValue({
+          name: this.employee?.name,
+          email: this.employee?.email,
+          status: this.employee?.status,
+          role: this.employee?.role
+        })
+      }
+      
     }
   }
 
   onSubmit(){
-    console.log(this.userData.value);
-    
     this.submitted.emit({data: {...this.userData.value, user_id: this._user.id}, endp: this.endp})
   }
 

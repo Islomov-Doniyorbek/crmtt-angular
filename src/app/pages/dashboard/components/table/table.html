@@ -78,13 +78,21 @@
                     <tr class="bg-gray-100 ">
                     <td class="py-3 text-[#404D61] text-left ">
                         <div class="flex gap-2 items-center">
-                            <div class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">V</div>
+                            <div
+                             [class.bg-blue-400] = "item.status == 'active'"
+                             [class.bg-yellow-400] = "item.status == 'free'"
+                             [class.bg-red-400] = "item.status == 'busy'"
+                             class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">V</div>
                             {{item.name}}
                         </div>
                     </td>
                     <td class="py-3 text-[#404D61] text-left">{{item.email}}</td>
-                    <td class="py-3 text-[#404D61] text-left">{{item.status}}</td>
-                    <td class="py-3 text-[#404D61] text-left">{{item.role}}</td>
+                    <td class="py-3 text-[#404D61] text-left">
+                        <lucide-icon
+                        [name]="item.status == 'active' ? 'briefcase-business' : item.status == 'free' ? 'tent-tree' : 'user-round-x'"
+                        ></lucide-icon>
+                    </td>
+                    <td class="py-3 text-[#404D61] text-left">{{item.role | titlecase}}</td>
                     <td class="py-3 w-1/12 text-[#404D61] ">
                         <div class="flex items-center justify-end px-4 gap-3 w-full">
                             <lucide-icon (click)="openForm(item, item.id, 'form')" name="pen" class="text-orange-500"></lucide-icon>

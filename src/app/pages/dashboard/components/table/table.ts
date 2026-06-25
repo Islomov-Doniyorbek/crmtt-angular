@@ -2,13 +2,13 @@ import { ChangeDetectorRef, Component, EventEmitter, inject, OnInit, Output, sig
 import { LucideAngularModule } from 'lucide-angular';
 import { DashboardService } from '../../dashboard.service';
 import { Employee, RespEmpl, RespUsers, User } from '../../../../shared/models/responses';
-import { DatePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Services } from '../../../../core/services/g.services';
 
 @Component({
   selector: 'app-table',
-  imports: [LucideAngularModule, DatePipe],
+  imports: [LucideAngularModule, DatePipe, TitleCasePipe],
   templateUrl: './table.html',
 })
 export class Table implements OnInit {
@@ -48,6 +48,8 @@ export class Table implements OnInit {
     this.action.emit({ id, type });
   }
   openForm(user: User | Employee, id: string,  type: 'delete' | 'ban' | 'free' | 'form'){
+    console.log(user);
+    
     this.editUser.emit(user)
     this.action.emit({id, type})
   }

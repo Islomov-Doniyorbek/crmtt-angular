@@ -62,8 +62,6 @@ export class Dashboard {
         error: err=>console.log(err)        
       })
     }else{
-      console.log(event.data);
-      
       this.dashService.createUser(event.data, event.endp).subscribe({
         next: (data) => {        
           if (this.gService.whoUser()) {
