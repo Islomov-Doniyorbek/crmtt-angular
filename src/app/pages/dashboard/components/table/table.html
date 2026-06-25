@@ -67,15 +67,18 @@
     <div class="px-3 w-full">
         <table class="w-full mt-5">
             <thead class="">
-                <tr>
+                <tr class="bg-gray-100">
                     @for (item of ['Name', "Email", "Status", 'Role', '']; track $index) {
                         <th class="py-2 text-left">{{item}}</th>
                     }
                 </tr>
             </thead>
             <tbody> 
-                @for (item of dashService.employees; track $index) {
-                    <tr class="bg-gray-100 ">
+                @for (item of dashService.employees; track item.id; let even = $even) {
+                  <tr 
+                  [class.bg-white] = even
+                  [class.bg-gray-100] = !even
+                  >
                     <td class="py-3 text-left ">
                         <div 
                              [class.text-red-400] = "item.status == 'busy'"
