@@ -28,7 +28,9 @@
                                     {{item.username}} 
                                 </div>
                             </td>
-                            <td class="py-3 text-[#404D61] text-left">{{item.role}}</td>
+                            <td class="py-3 text-[#404D61] text-left">
+                                <lucide-icon [name]="item.role === 'admin' ? 'shield-user' : 'user'"></lucide-icon>
+                            </td>
                             <td class="py-3 text-[#404D61] text-left">{{item.created_at | date:'medium'}}</td>
                             <!-- <td class="py-3 text-[#404D61] text-left">{{item.password | pipes}}</td> -->
                             <td class="py-3 text-[#404D61] text-left"

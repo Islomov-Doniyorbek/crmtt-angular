@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Api } from '../../core/services/api';
 import { RespUpdateUser, RespUsers, User } from '../../shared/models/responses';
 import { Observable } from 'rxjs';
 interface Uuser {
@@ -15,15 +14,12 @@ interface Uuser {
 export class DashboardService {
   private http = inject(HttpClient)
   users:User[] = []
-  private apiService = inject(Api)
   isHideStat: boolean = true; //statistika kartalari uchun </D>
   // editUser: User = [];
 
   getAllusers():Observable<RespUsers>{
     const token = localStorage.getItem('accToken')
-    return this.http.get<RespUsers>('http://localhost:3000/api/users', {
-      headers: this.apiService.header(token!)
-    })
+    return this.http.get<RespUsers>('http://localhost:3000/api/users')
   }
 
   createUser(user:User){

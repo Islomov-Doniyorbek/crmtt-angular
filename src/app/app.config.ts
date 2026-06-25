@@ -2,14 +2,17 @@ import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListen
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { icons, LucideAngularModule } from 'lucide-angular';
+import { interceptorsInterceptor } from './core/auth/interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([interceptorsInterceptor])
+    ),
     importProvidersFrom(
       LucideAngularModule.pick(icons) 
     )

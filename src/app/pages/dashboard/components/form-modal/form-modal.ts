@@ -15,12 +15,22 @@ export class FormModal implements OnInit {
   @Output() submitted = new EventEmitter()
   @Output() cancel = new EventEmitter()
 
+  _user:User = JSON.parse(localStorage.getItem('user')!)
   dashService = inject(DashboardService)
-  userData: FormGroup = new FormGroup({
+
+  userData: FormGroup = this._user.role === 'admin' ? 
+  new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', !this.user ? null : Validators.required),
     role: new FormControl('user', Validators.required),
+  }) : 
+  new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    status: new FormControl('user', Validators.required),
+    role: new FormControl('user', Validators.required),
   })
+
   isSuccess = signal(false)
 
   ngOnInit(): void {
@@ -37,7 +47,6 @@ export class FormModal implements OnInit {
     
     this.submitted.emit(this.userData.value)
   }
-
 
   onCancel(){
     this.cancel.emit()
