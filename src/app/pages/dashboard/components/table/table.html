@@ -17,8 +17,11 @@
                     </tr>
                 }@else {
                     
-                    @for (item of dashService.users; track $index;) {
-                        <tr class="bg-white border-y border-gray-200">
+                    @for (item of dashService.users; track item.id; let even = $even) {
+                        <tr 
+                            [class.bg-white] = even
+                            [class.bg-gray-100] = !even
+                            >
                             <td class="p-3 text-[#075ad7] text-left">
                                 <div class="flex gap-2 items-center">
                                     <div class="w-6 h-6 rounded-full flex items-center justify-center text-white"
