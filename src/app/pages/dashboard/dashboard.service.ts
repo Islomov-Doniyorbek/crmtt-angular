@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { RespUpdateUser, RespUsers, User } from '../../shared/models/responses';
+import { Employee, RespEmpl, RespUpdateUser, RespUsers, User } from '../../shared/models/responses';
 import { Observable } from 'rxjs';
 interface Uuser {
   username: string
@@ -14,19 +14,19 @@ interface Uuser {
 export class DashboardService {
   private http = inject(HttpClient)
   users:User[] = []
+  employees: Employee[] = []
   isHideStat: boolean = true; //statistika kartalari uchun </D>
   // editUser: User = [];
 
-  getAllusers():Observable<RespUsers>{
-    const token = localStorage.getItem('accToken')
-    return this.http.get<RespUsers>('http://localhost:3000/api/users')
+  getAllusers(endp: string):Observable<RespUsers | RespEmpl>{
+    return this.http.get<RespUsers | RespEmpl>(`http://localhost:3000/api/${endp}`)
   }
 
-  createUser(user:User){
-    return this.http.post<User>('http://localhost:3000/api/user/create', user)
+  createUser(user:User | Employee, endp: string):Observable<User | Employee >{
+    return this.http.post<User | Employee>(`http://localhost:3000/api/${endp}/create`, user)
   }
 
-  updateUser(user: User, id: string):Observable<RespUpdateUser>{
+  updateUser(user: User | Employee, id: string):Observable<RespUpdateUser>{
     return this.http.put<RespUpdateUser>(`http://localhost:3000/api/user/update/${id}`, user)
   }
 

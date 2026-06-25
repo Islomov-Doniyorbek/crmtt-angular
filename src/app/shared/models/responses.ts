@@ -23,3 +23,18 @@ export interface RespUpdateUser {
     status: number
     result: User
 }
+
+
+
+export interface RespEmpl {
+    status: number
+    employees: Employee[]
+}
+export interface Employee {
+    id: string
+    user_id: string
+    name: string
+    email: string
+    role: string
+    status: string
+}

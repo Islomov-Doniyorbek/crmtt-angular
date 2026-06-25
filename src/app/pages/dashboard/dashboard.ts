@@ -10,7 +10,8 @@ import { FormModal } from "./components/form-modal/form-modal";
 import { DeleteModal } from "./components/delete-modal/delete-modal";
 import { BanModal } from './components/ban-modal/ban-modal';
 import { FreeModal } from "./components/free-modal/free-modal";
-import { User } from '../../shared/models/responses';
+import { Employee, RespEmpl, RespUsers, User } from '../../shared/models/responses';
+import { Services } from '../../core/services/g.services';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,7 @@ import { User } from '../../shared/models/responses';
 })
 export class Dashboard {
   dashService = inject(DashboardService);
+  gService = inject(Services)
   router = inject(Router)
   cdr = inject(ChangeDetectorRef)
   
@@ -36,7 +38,7 @@ export class Dashboard {
     this.userId = id;
     this.modalType.set(type)
   }
-  openFormModal(user?: User){
+  openFormModal(user?: User | Employee){
     this.selectUser = user
     this.modalType.set('form')
   }
@@ -46,11 +48,11 @@ export class Dashboard {
   }
 
 
-  onFormSubmit(data: User){
-    // console.log(this.selectUser.id);
+  onFormSubmit(event: {data: User | Employee, endp: string}){
+    
     
     if(this.selectUser){
-      this.dashService.updateUser(data, this.selectUser.id).subscribe({
+      this.dashService.updateUser(event.data, this.selectUser.id).subscribe({
         next: data=> {
           this.dashService.users = this.dashService.users.map(user =>
                 user.id === this.selectUser.id ? { ...user, ...data.result } : user
@@ -63,12 +65,15 @@ export class Dashboard {
         
       })
     }else{
-      this.dashService.createUser(data).subscribe({
-        next: data => {        
-          this.dashService.users = [
-            ...this.dashService.users,
-            data
-          ];
+      console.log(event.data);
+      
+      this.dashService.createUser(event.data, event.endp).subscribe({
+        next: (data) => {        
+          if (this.gService.whoUser()) {
+            this.dashService.users = [...this.dashService.users, data as User];
+          } else {
+            this.dashService.employees = [...this.dashService.employees, data as Employee];
+          }
           this.closemOdal()
         },
         error:err=>{

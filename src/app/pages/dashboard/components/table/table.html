@@ -73,17 +73,18 @@
                     }
                 </tr>
             </thead>
-            <tbody>
-                <tr class="bg-gray-100 ">
+            <tbody> 
+                @for (item of dashService.employees; track $index) {
+                    <tr class="bg-gray-100 ">
                     <td class="py-3 text-[#404D61] text-left ">
                         <div class="flex gap-2 items-center">
                             <div class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">V</div>
-                            Vartolu
+                            {{item.name}}
                         </div>
                     </td>
-                    <td class="py-3 text-[#404D61] text-left">varto@gmail.com</td>
-                    <td class="py-3 text-[#404D61] text-left">Free</td>
-                    <td class="py-3 text-[#404D61] text-left">Developer</td>
+                    <td class="py-3 text-[#404D61] text-left">{{item.email}}</td>
+                    <td class="py-3 text-[#404D61] text-left">{{item.status}}</td>
+                    <td class="py-3 text-[#404D61] text-left">{{item.role}}</td>
                     <td class="py-3 text-[#404D61] text-left ">
                         <div class="flex items-center gap-3 w-full">
                             <lucide-icon name="pen" class="text-orange-500"></lucide-icon>
@@ -91,6 +92,7 @@
                         </div>
                     </td>
                 </tr>
+                }
             </tbody>
         </table>
     </div>

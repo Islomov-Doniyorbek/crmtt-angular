@@ -27,9 +27,11 @@ export class FormModal implements OnInit {
   new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    status: new FormControl('user', Validators.required),
-    role: new FormControl('user', Validators.required),
+    status: new FormControl('active', Validators.required),
+    role: new FormControl('amaliyotchi', Validators.required),
   })
+
+  endp: string = this._user.role === 'admin' ? 'user' : 'employee';
 
   isSuccess = signal(false)
 
@@ -45,7 +47,7 @@ export class FormModal implements OnInit {
   onSubmit(){
     console.log(this.userData.value);
     
-    this.submitted.emit(this.userData.value)
+    this.submitted.emit({data: {...this.userData.value, user_id: this._user.id}, endp: this.endp})
   }
 
   onCancel(){
