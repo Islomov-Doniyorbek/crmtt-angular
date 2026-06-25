@@ -76,8 +76,10 @@
             <tbody> 
                 @for (item of dashService.employees; track $index) {
                     <tr class="bg-gray-100 ">
-                    <td class="py-3 text-[#404D61] text-left ">
-                        <div class="flex gap-2 items-center">
+                    <td class="py-3 text-left ">
+                        <div 
+                             [class.text-red-400] = "item.status == 'busy'"
+                             class="flex gap-2 items-center">
                             <div
                              [class.bg-blue-400] = "item.status == 'active'"
                              [class.bg-yellow-400] = "item.status == 'free'"
@@ -86,13 +88,18 @@
                             {{item.name}}
                         </div>
                     </td>
-                    <td class="py-3 text-[#404D61] text-left">{{item.email}}</td>
+                    <td
+                       [class.text-red-400] = "item.status == 'busy'" 
+                       class="py-3 text-[#404D61] text-left">{{item.email}}</td>
                     <td class="py-3 text-[#404D61] text-left">
                         <lucide-icon
-                        [name]="item.status == 'active' ? 'briefcase-business' : item.status == 'free' ? 'tent-tree' : 'user-round-x'"
+                            [class.text-red-400] = "item.status == 'busy'"
+                            [name]="item.status == 'active' ? 'briefcase-business' : item.status == 'free' ? 'tent-tree' : 'user-round-x'"
                         ></lucide-icon>
                     </td>
-                    <td class="py-3 text-[#404D61] text-left">{{item.role | titlecase}}</td>
+                    <td 
+                        [class.text-red-400] = "item.status == 'busy'
+                        "class="py-3 text-[#404D61] text-left">{{item.role | titlecase}}</td>
                     <td class="py-3 w-1/12 text-[#404D61] ">
                         <div class="flex items-center justify-end px-4 gap-3 w-full">
                             <lucide-icon (click)="openForm(item, item.id, 'form')" name="pen" class="text-orange-500"></lucide-icon>
