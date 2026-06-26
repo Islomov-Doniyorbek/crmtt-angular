@@ -1,11 +1,11 @@
 <div class="flex relative w-full h-screen overflow-hidden">
     <app-sidebar></app-sidebar>
     <div class="wrapper px-3 pb-5 w-full max-h-screen overflow-auto">
-        <app-navbar (openModal)="openFormModal()"></app-navbar>
+        <app-navbar [isEdit]="isEdit()" (editMode)="onEdit()" (editCancel)="onEditCancel()" (openModal)="openFormModal()"></app-navbar>
         <main class="">
             <app-filter/>
             <app-statistics/>
-            <app-table (editUser)="openFormModal($event)" (action)="openModal($event.id, $event.type)"/>
+            <app-table [isEdit]="isEdit()" (editUser)="openFormModal($event)" (action)="openModal($event.id, $event.type)"/>
         </main>
     </div>
     @if (modalType() === 'form') {

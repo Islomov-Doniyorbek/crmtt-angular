@@ -24,10 +24,18 @@
                             >
                             <td class="p-3 text-[#075ad7] text-left">
                                 <div class="flex gap-2 items-center">
-                                    <div class="w-6 h-6 rounded-full flex items-center justify-center text-white"
+                                    @if(isEdit){
+                                        <lucide-icon (click)="!user.banned ? openForm(item, item.id, 'form') : null" [name]="user.banned ? 'pencil-off' : 'pen'" 
+                                [class.text-yellow-200] = user.banned
+                                [class.text-yellow-500] = !user.banned
+                                class="animate-pulse"
+                                ></lucide-icon>
+                                    }@else{
+                                        <div class="w-6 h-6 rounded-full flex items-center justify-center text-white"
                                         [class.bg-blue-500] = "!item.banned"
                                         [class.bg-red-500] = "item.banned"
                                     >{{item.username[0]}}</div>
+                                    }
                                     {{item.username}} 
                                 </div>
                             </td>
@@ -91,11 +99,22 @@
                         <div 
                              [class.text-red-400] = "item.status == 'busy'"
                              class="flex gap-2 items-center">
+
+                             @if (isEdit){
+                                <lucide-icon (click)="!user.banned ? openForm(item, item.id, 'form') : null" [name]="user.banned ? 'pencil-off' : 'pen'" 
+                                [class.text-yellow-200] = user.banned
+                                [class.text-yellow-500] = !user.banned
+                                class="animate-pulse"
+                                ></lucide-icon>
+                             }@else{
                             <div
                              [class.bg-blue-400] = "item.status == 'active'"
                              [class.bg-yellow-400] = "item.status == 'free'"
                              [class.bg-red-400] = "item.status == 'busy'"
                              class="w-6 h-6 rounded-full flex items-center justify-center text-white">V</div>
+
+                             }
+
                             {{item.name}}
                         </div>
                     </td>

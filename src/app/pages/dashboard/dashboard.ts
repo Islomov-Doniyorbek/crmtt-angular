@@ -28,7 +28,14 @@ export class Dashboard {
   modalType = signal<'delete' | 'ban' | 'free' | 'form' | null>(null)
   selectUser: any  = null
   error = signal('')
+  isEdit = signal(false)
 
+  onEdit(){
+    this.isEdit.set(true)
+  }
+  onEditCancel(){
+    this.isEdit.set(false)
+  }
 
   saveId(id: string) {  
     this.removeItemId = id

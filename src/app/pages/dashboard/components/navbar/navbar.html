@@ -14,8 +14,21 @@
         }@else {
             <button (click)="openFormModal()" class="px-5 py-3 bg-[#5B6AD0] rounded-xl text-white border-gray-200">Add employee</button>
         }
-        <div class="px-3 py-2.5 rounded-md border border-gray-200 bg-white">
-            <lucide-icon name="pen" class="text-gray-500"></lucide-icon>
+        @if (isEdit) {
+        <div
+         (click)="onEditCancel()"
+         class="animate-bounce px-3 py-2.5 rounded-md border bg-white cursor-pointer"
+         [class.border-gray-200] = !isEdit
+         [class.border-orange-500] = isEdit
+         >
+            <lucide-icon name="x" class="text-gray-500"></lucide-icon>
         </div>
+        }@else {
+            <div
+            (click)="onEdit()"
+            class="px-3 py-2.5 rounded-md border border-gray-200 bg-white cursor-pointer">
+                <lucide-icon name="pen" class="text-gray-500"></lucide-icon>
+            </div>
+        }
     </div>
 </div>

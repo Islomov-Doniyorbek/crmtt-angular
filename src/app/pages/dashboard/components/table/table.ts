@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, OnInit, Output, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { DashboardService } from '../../dashboard.service';
 import { Employee, RespEmpl, RespUsers, User } from '../../../../shared/models/responses';
@@ -12,6 +12,8 @@ import { Services } from '../../../../core/services/g.services';
   templateUrl: './table.html',
 })
 export class Table implements OnInit {
+  @Input() isEdit: boolean = false
+
   @Output() action = new EventEmitter<{ id: string, type: 'delete' | 'ban' | 'free' | 'form' | null}>();
   @Output() id = new EventEmitter<string>()
   @Output() editUser = new EventEmitter<User | Employee>()
