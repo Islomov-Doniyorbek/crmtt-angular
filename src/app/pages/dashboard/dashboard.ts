@@ -52,11 +52,20 @@ export class Dashboard {
     
     
     if(this.selectUser){
-      this.dashService.updateUser(event.data, this.selectUser.id).subscribe({
+      this.dashService.updateUser(event.data, this.selectUser.id, event.endp).subscribe({
         next: data=> {
-          this.dashService.users = this.dashService.users.map(user =>
-                user.id === this.selectUser.id ? { ...user, ...data.result } : user
-            ); 
+          console.log(data);
+          
+          if (this.gService.whoUser()) {
+            this.dashService.users = this.dashService.users.map(user =>
+                  user.id === this.selectUser.id ? { ...user, ...data.result } : user
+              ); 
+            }else{
+            this.dashService.employees = this.dashService.employees.map(user =>
+                  user.id === this.selectUser.id ? { ...user, ...data.result } : user
+              ); 
+
+          }
             this.modalType.set(null)
         },
         error: err=>console.log(err)        

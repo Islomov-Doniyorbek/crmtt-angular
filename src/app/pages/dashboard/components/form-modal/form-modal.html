@@ -62,7 +62,12 @@
             <!-- <button type="button" (click)="dashService.openForm()" class="border px-2 py-1">Close</button> -->
             <lucide-icon (click)="onCancel()" class="cursor-pointer font-semibold hover:text-red-600" name="x"></lucide-icon>
         </div>
-        <form [formGroup]="userData" (ngSubmit)="onSubmit()" class="flex w-full px-4 flex-col gap-4 items-center">
+        @if (_user.banned) {
+            <div class="w-full text-center">
+                <b class=" text-lg text-orange-500"><i>Xodim qo'shish funksiyasi vaqtinchalik cheklangan!!!</i></b>
+            </div>
+        }
+        <form [formGroup]="userData" (ngSubmit)="onSubmit()" class="flex w-full px-4 py-3 flex-col gap-4 items-center">
             <div class="w-full flex items-center gap-2 px-1.5 py-1 rounded-md border border-cyan-700 shadow-2xs shadow-blue-50"
             [class.border-red-400] = "userData.get('username')?.invalid && userData.get('username')?.touched"
             >
@@ -123,7 +128,9 @@
              @if (isSuccess()) {
                 <small class="text-green-600">Foydalanuvchi yaratildi!</small>
             }
-            <button type="submit" [disabled]="userData.invalid" [class.opacity-50]="userData.invalid" class="w-full py-1.5 px-0.5 text-center bg-[#5B6AD0] rounded-md text-white cursor-pointer">Add</button>
+            @if (!_user.banned) {
+                <button type="submit" [disabled]="userData.invalid" [class.opacity-50]="userData.invalid" class="w-full py-1.5 px-0.5 text-center bg-[#5B6AD0] rounded-md text-white cursor-pointer">Add</button>
+            }
         </form>
     </div>
 </div>

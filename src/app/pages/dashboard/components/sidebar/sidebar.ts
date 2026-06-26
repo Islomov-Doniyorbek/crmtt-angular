@@ -1,20 +1,18 @@
 import { Component } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { RouterLink } from "@angular/router";
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [LucideAngularModule, RouterLink],
+  imports: [LucideAngularModule, RouterLink, TitleCasePipe],
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
+
+  user = JSON.parse(localStorage.getItem('user')!)
+
   linkItems = [
-    {
-      id: 0,
-      name: "Search",
-      icon: "search",          
-      path: "/"
-    },
     {
       id: 1,
       name: "Dashboard",
@@ -25,31 +23,31 @@ export class Sidebar {
       id: 2,
       name: "Product",
       icon: "box",             
-      path: "/"
+      path: "/process"
     },
     {
       id: 3,
       name: "Analytics",
       icon: "chart-no-axes-combined",      
-      path: "/"
+      path: "/process"
     },
     {
       id: 4,
       name: "Calendar",
       icon: "calendar",         
-      path: "/"
+      path: "/process"
     },
     {
       id: 5,
       name: "Messenger",
       icon: "message-circle", 
-      path: "/"
+      path: "/process"
     },
     {
       id: 6,
       name: "Crypto",
       icon: "bitcoin",          
-      path: "/"
+      path: "/process"
     },
   ]
 }

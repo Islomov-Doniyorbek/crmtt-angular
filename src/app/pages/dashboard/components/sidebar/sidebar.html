@@ -1,11 +1,11 @@
 <div class="relative w-62.5 h-screen bg-[#F1F2F6] pb-5">
     <div class="py-5 px-3 w-full flex justify-around items-center">
-        <div class="w-8 h-8 flex items-center justify-center bg-sky-300 rounded-full">
-            <img src="https://cdn.kia.uz/media/images/models/679b84ae-0ec7-4c9c-bb34-fd533b6840e5.webp" alt="12">
+        <div class="w-8 h-8 flex items-center justify-center text-white font-semibold bg-linear-to-r from-yellow-600 to-green-600 rounded-full">
+            {{user.username[0] | titlecase}}
         </div>
         <div class="bio">
             <small class="font-light">Welcome back!</small>
-            <h2 class="text-lg font-medium">Jack</h2>
+            <h2 class="text-lg font-medium">{{user.username |titlecase}}</h2>
         </div>
         <div class="px-3 py-1 rounded-md border border-gray-200 bg-white">
             <lucide-icon name="settings" class="text-gray-500"></lucide-icon>
@@ -13,11 +13,15 @@
     </div>
     <ul class="w-full bottom-1 py-3 px-3">
         @for (item of linkItems; track $index) {
-            <li class="flex w-full justify-between items-center rounded-l-full gap-4 py-3 px-4
+            <li 
+                [routerLink]="item.path"
+                class="flex w-full justify-between items-center rounded-l-full gap-4 py-3 px-4
                 transition duration-500 hover:bg-white    
                 ">
                 <div class="flex gap-4">
-                    <lucide-icon [name]="item.icon" class="text-gray-600 font-thin w-4"></lucide-icon>
+                    <lucide-icon [name]="item.icon"
+                     
+                     class="text-gray-600 font-thin w-4"></lucide-icon>
                     <p class="text-gray-600 font-thin">{{item.name}}</p>
                 </div>
                 <lucide-icon name="menu"></lucide-icon>
@@ -25,17 +29,21 @@
         }
     </ul>
     <div class="bottom w-full absolute bottom-1 py-3 px-3">
-        <div class="flex w-full items-center rounded-l-full gap-4 py-3 px-4
+        <div 
+            routerLink="process"
+            class="flex w-full items-center rounded-l-full gap-4 py-3 px-4
             transition duration-500 hover:bg-white    
         ">
             <lucide-icon name="hand-fist" class="text-gray-600 font-thin w-4"></lucide-icon>
             <p class="text-gray-600 font-thin">Support</p>
         </div>
-        <div class="flex w-full items-center rounded-l-full gap-4 py-3 px-4
+        <div 
+            routerLink="login"
+            class="flex w-full items-center rounded-l-full gap-4 py-3 px-4
             transition duration-500 hover:bg-white    
         ">
             <lucide-icon name="power" class="text-gray-600 font-thin w-4"></lucide-icon>
-            <p class="text-gray-600 font-thin" routerLink="login">Sign out</p>
+            <p class="text-gray-600 font-thin" >Sign out</p>
         </div>
     </div>
 </div>

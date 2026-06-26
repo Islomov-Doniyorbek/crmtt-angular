@@ -26,8 +26,8 @@ export class DashboardService {
     return this.http.post<User | Employee>(`http://localhost:3000/api/${endp}/create`, user)
   }
 
-  updateUser(user: User | Employee, id: string):Observable<RespUpdateUser>{
-    return this.http.put<RespUpdateUser>(`http://localhost:3000/api/user/update/${id}`, user)
+  updateUser(user: User | Employee, id: string, endp: string):Observable<RespUpdateUser>{
+    return this.http.put<RespUpdateUser>(`http://localhost:3000/api/${endp}/update/${id}`, user)
   }
 
   deleteUser(id: string, endp: string){

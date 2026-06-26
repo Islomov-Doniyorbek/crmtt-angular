@@ -31,7 +31,6 @@ export class Table implements OnInit {
         this.GService.whoUser() ? (this.dashService.users = (data as RespUsers).users) : (this.dashService.employees = (data as RespEmpl).employees)
         this.isLoading.set(false)
         this.cdr.detectChanges() 
-        
       },
       error: err=>{
         this.isLoading.set(false)

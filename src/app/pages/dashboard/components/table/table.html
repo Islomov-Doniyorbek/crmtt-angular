@@ -75,8 +75,13 @@
                         <th class="py-2 text-left">{{item}}</th>
                     }
                 </tr>
-            </thead>
+            </thead> 
             <tbody> 
+                @if (isLoading()) {
+                    <tr class="bg-blue-200 px-3">
+                        <td colspan="5" class="text-center py-3 text-[#404D61]">Yuklanmoqda... {{isLoading()}} </td>
+                    </tr>
+                }@else {
                 @for (item of dashService.employees; track item.id; let even = $even) {
                   <tr 
                   [class.bg-white] = even
@@ -90,15 +95,18 @@
                              [class.bg-blue-400] = "item.status == 'active'"
                              [class.bg-yellow-400] = "item.status == 'free'"
                              [class.bg-red-400] = "item.status == 'busy'"
-                             class="w-6 h-6 rounded-full bg-blue-400 flex items-center justify-center text-white">V</div>
+                             class="w-6 h-6 rounded-full flex items-center justify-center text-white">V</div>
                             {{item.name}}
                         </div>
                     </td>
                     <td
                        [class.text-red-400] = "item.status == 'busy'" 
                        class="py-3 text-[#404D61] text-left">{{item.email}}</td>
-                    <td class="py-3 text-[#404D61] text-left">
+                    <td class="py-3 text-[#404D61] text-center">
                         <lucide-icon
+                            [title]="
+                            item.status == 'active' ? 'Faol' : item.status == 'free' ? 'Ta\'tilda' : 'Bo\'shatilgan'
+                            "
                             [class.text-red-400] = "item.status == 'busy'"
                             [name]="item.status == 'active' ? 'briefcase-business' : item.status == 'free' ? 'tent-tree' : 'user-round-x'"
                         ></lucide-icon>
@@ -108,11 +116,22 @@
                         "class="py-3 text-[#404D61] text-left">{{item.role | titlecase}}</td>
                     <td class="py-3 w-1/12 text-[#404D61] ">
                         <div class="flex items-center justify-end px-4 gap-3 w-full">
-                            <lucide-icon (click)="openForm(item, item.id, 'form')" name="pen" class="text-orange-500"></lucide-icon>
-                            <lucide-icon (click)="onAction(item.id, 'delete')" name="trash" class="text-red-500"></lucide-icon>
+                            <lucide-icon (click)="!user.banned ? openForm(item, item.id, 'form') : null" [name]="user.banned ? 'pencil-off' : 'pen'" 
+                             [class.text-yellow-200] = user.banned
+                             [class.text-yellow-500] = !user.banned
+                            ></lucide-icon>
+                            <lucide-icon (click)="!user.banned ? onAction(item.id, 'delete') : null" name="trash"
+                             [class.text-red-200] = user.banned
+                             [class.text-red-500] = !user.banned
+                             ></lucide-icon>
                         </div>
                     </td>
                 </tr>
+                }@empty {
+                        <tr class="bg-amber-200">
+                            <td colspan="5" class="text-center py-3 text-[#404D61]">Ma'lumotlar mavjud emas!</td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
