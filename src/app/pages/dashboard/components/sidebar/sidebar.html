@@ -1,15 +1,29 @@
-<div class="relative w-62.5 h-screen bg-[#F1F2F6] pb-5">
-    <div class="py-5 px-3 w-full flex justify-around items-center">
+<div class="relative transition-all duration-700 h-screen bg-[#F1F2F6] pb-5"
+    [class.w-62-5] = open()
+    [class.w-32-5] = !open()
+>
+    <div class="py-5 px-3 w-full flex gap-2 justify-around items-center"
+        [class.flex-col] = !open()
+    >
         <div class="w-8 h-8 flex items-center justify-center text-white font-semibold bg-linear-to-r from-yellow-600 to-green-600 rounded-full">
             {{user.username[0] | titlecase}}
         </div>
-        <div class="bio">
-            <small class="font-light">Welcome back!</small>
-            <h2 class="text-lg font-medium">{{user.username |titlecase}}</h2>
-        </div>
-        <div class="px-3 py-1 rounded-md border border-gray-200 bg-white">
-            <lucide-icon name="settings" class="text-gray-500"></lucide-icon>
-        </div>
+        @if (open()) {
+            <div class="bio">
+                <small class="font-light">Welcome back!</small>
+                <h2 class="text-lg font-medium">{{user.username |titlecase}}</h2>
+            </div>
+        }
+        @if (open()) {
+             <div class="px-2 py-1 rounded-md border cursor-pointer border-gray-200 bg-white hover:bg-gray-200">
+                <lucide-icon (click)="closeSide()" name="chevron-left" class="text-gray-500"></lucide-icon>
+            </div>
+            }
+        @if(!open()) {
+            <div class="px-2 py-1 rounded-md border cursor-pointer border-gray-200 bg-white hover:bg-gray-200">
+                <lucide-icon (click)="openSide()" name="chevron-right" class="text-gray-500"></lucide-icon>
+            </div>
+        }
     </div>
     <ul class="w-full bottom-1 py-3 px-3">
         @for (item of linkItems; track $index) {
@@ -18,32 +32,40 @@
                 class="flex w-full justify-between items-center rounded-l-full gap-4 py-3 px-4
                 transition duration-500 hover:bg-white    
                 ">
-                <div class="flex gap-4">
+                <div class="flex gap-4 cursor-pointer">
                     <lucide-icon [name]="item.icon"
                      
                      class="text-gray-600 font-thin w-4"></lucide-icon>
-                    <p class="text-gray-600 font-thin">{{item.name}}</p>
+                    @if (open()) {
+                        <p class="text-gray-600 font-thin">{{item.name}}</p>
+                    }
                 </div>
-                <lucide-icon name="menu"></lucide-icon>
+                @if (open()) {
+                    <lucide-icon name="menu"></lucide-icon>
+                }
             </li>
         }
     </ul>
     <div class="bottom w-full absolute bottom-1 py-3 px-3">
         <div 
             routerLink="process"
-            class="flex w-full items-center rounded-l-full gap-4 py-3 px-4
+            class="flex w-full cursor-pointer items-center rounded-l-full gap-4 py-3 px-4
             transition duration-500 hover:bg-white    
         ">
             <lucide-icon name="hand-fist" class="text-gray-600 font-thin w-4"></lucide-icon>
-            <p class="text-gray-600 font-thin">Support</p>
+            @if (open()) {
+                <p class="text-gray-600 font-thin">Support</p>
+            }
         </div>
         <div 
             routerLink="login"
-            class="flex w-full items-center rounded-l-full gap-4 py-3 px-4
+            class="flex w-full cursor-pointer items-center rounded-l-full gap-4 py-3 px-4
             transition duration-500 hover:bg-white    
         ">
             <lucide-icon name="power" class="text-gray-600 font-thin w-4"></lucide-icon>
-            <p class="text-gray-600 font-thin" >Sign out</p>
+            @if (open()) {
+                <p class="text-gray-600 font-thin" >Sign out</p>
+            }
         </div>
     </div>
 </div>

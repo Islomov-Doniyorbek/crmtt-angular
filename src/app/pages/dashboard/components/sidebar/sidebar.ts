@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { RouterLink } from "@angular/router";
 import { TitleCasePipe } from '@angular/common';
@@ -11,6 +11,14 @@ import { TitleCasePipe } from '@angular/common';
 export class Sidebar {
 
   user = JSON.parse(localStorage.getItem('user')!)
+  open = signal(true)
+
+  openSide(){
+    this.open.set(true)
+  }
+  closeSide(){
+    this.open.set(false)
+  }
 
   linkItems = [
     {
