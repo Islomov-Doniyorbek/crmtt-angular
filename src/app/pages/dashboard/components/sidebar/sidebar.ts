@@ -20,7 +20,8 @@ export class Sidebar {
     this.open.set(false)
   }
 
-  linkItems = [
+  linkItems = this.user.role === 'admin' ? 
+  [
     {
       id: 1,
       name: "Dashboard",
@@ -29,14 +30,29 @@ export class Sidebar {
     },
     {
       id: 2,
-      name: "Product",
-      icon: "box",             
+      name: "Messenger",
+      icon: "message-circle", 
+      path: "/process"
+    },
+  ]
+  : 
+  [
+    {
+      id: 1,
+      name: "Dashboard",
+      icon: "layout-dashboard", 
+      path: "/"
+    },
+    {
+      id: 2,
+      name: "Shtatlar",
+      icon: "Briefcase",             
       path: "/process"
     },
     {
       id: 3,
-      name: "Analytics",
-      icon: "chart-no-axes-combined",      
+      name: "FOT",
+      icon: "calculator",      
       path: "/process"
     },
     {

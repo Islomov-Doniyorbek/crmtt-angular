@@ -23,7 +23,7 @@ export class Login {
       next: (res)=>{
         localStorage.setItem('accToken', res.token)
         localStorage.setItem('user', JSON.stringify(res.user))
-        this.router.navigate([''])
+        this.router.navigate(['/dashboard'])
       },
       error: (err)=>{
         console.log(err);
@@ -39,7 +39,6 @@ export class Login {
         setTimeout(() => {
           this.error.set('')
         }, 3000);
-        
       }
     })
   }
