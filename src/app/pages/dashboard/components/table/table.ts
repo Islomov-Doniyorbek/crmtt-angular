@@ -30,9 +30,14 @@ export class Table implements OnInit {
     this.isLoading.set(true)
     this.dashService.getAllusers(this.GService.whoUser() ? 'users' : 'employees').subscribe({
       next: (data: RespUsers | RespEmpl)=>{
+        console.log(data);
+        
         this.GService.whoUser() ? (this.dashService.users = (data as RespUsers).users) : (this.dashService.employees = (data as RespEmpl).employees)
         this.isLoading.set(false)
         this.cdr.detectChanges() 
+        console.log(this.dashService.users);
+        console.log(this.dashService.employees);
+        
       },
       error: err=>{
         this.isLoading.set(false)

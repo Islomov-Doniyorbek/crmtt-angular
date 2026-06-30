@@ -6,7 +6,9 @@ import { User } from '../../shared/models/responses';
 })
 export class Services {
 
-  user:User = JSON.parse(localStorage.getItem('user')!)
+  get user(): User {
+    return JSON.parse(localStorage.getItem('user')!)
+  }
 
   whoUser():boolean{
     return this.user?.role === 'admin'

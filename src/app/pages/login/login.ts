@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class Login {
   loginService = inject(LoginService)
   router = inject(Router)
-
   formData:FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
