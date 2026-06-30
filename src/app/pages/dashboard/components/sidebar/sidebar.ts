@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { TitleCasePipe } from '@angular/common';
 
 @Component({
@@ -9,9 +9,11 @@ import { TitleCasePipe } from '@angular/common';
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
+  router = inject(Router)
 
   user = JSON.parse(localStorage.getItem('user')!)
   open = signal(true)
+  
 
   openSide(){
     this.open.set(true)
@@ -74,4 +76,10 @@ export class Sidebar {
       path: "/process"
     },
   ]
+
+
+  clearStorege(){
+    localStorage.clear()
+    this.router.navigate(['/login'])
+  }
 }
