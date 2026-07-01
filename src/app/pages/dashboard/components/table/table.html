@@ -19,6 +19,7 @@
                     
                     @for (item of dashService.users; track item.id; let even = $even) {
                         <tr 
+                            class="hover:bg-cyan-50"
                             [class.bg-white] = even
                             [class.bg-gray-100] = !even
                             >
